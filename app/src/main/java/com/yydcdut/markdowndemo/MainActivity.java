@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.yydcdut.rxmarkdown.EditActivity;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
@@ -14,7 +16,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("RxMarkdown");
         findViewById(R.id.btn_edit_show).setOnClickListener(this);
         findViewById(R.id.btn_compare).setOnClickListener(this);
     }
@@ -26,7 +27,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(this, CompareActivity.class));
                 break;
             case R.id.btn_edit_show:
-                startActivity(new Intent(this, EditActivity.class));
+                Intent intent = new Intent(this, EditActivity.class);
+                intent.putExtra(EditActivity.TITLE, "Judul");
+                intent.putExtra(EditActivity.TEXT, "Deskripsi Barang");
+                intent.putExtra(EditActivity.PLACEHOLDER, "wahaha");
+                startActivityForResult(intent, 123);
                 break;
         }
     }

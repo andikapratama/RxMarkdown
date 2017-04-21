@@ -1,85 +1,167 @@
 package com.yydcdut.markdowndemo;
 
-import android.os.Environment;
-
-import java.io.File;
-
 /**
  * Created by yuyidong on 16/5/11.
  */
 public interface Const {
 
-    String MD_SAMPLE = "在这个**版本**中我们*增加test*了 `Markdown` 功能。`Markdown` 是~~一种使用纯文本编写的标记~~语言，可以产生格式![test](http://7xs03u.com1.z0.glb.clouddn.com/dex_dexopt_dex2oat.png/320$320)丰富的页面[^排版效果]，比如突出[标题](http://www.baidu.com)、居中、加粗、引用和生成列表。\n" +
+    String MD_SAMPLE = "An h1 header\n" +
+            "============\n" +
             "\n" +
-            "## **用法与规则：**\n" +
-//                    "\n" +
-//                    "你可以手动输入，也可以点击键盘上方的按钮快速输入 Markdown 符号。\n" +
+            "Paragraphs are separated by a blank line.\n" +
             "\n" +
-            "### **标题**\n" +
-            "使用“#”加空格在*行首*来创建标题![test](drawable://" + R.drawable.desktop_device + "/300$300)\n" +
+            "2nd paragraph. *Italic*, **bold**, and `monospace`. Itemized lists\n" +
+            "look like:\n" +
+            "\n" +
+            "  * this one\n" +
+            "  * that one\n" +
+            "  * the other one\n" +
+            "\n" +
+            "Note that --- not considering the asterisk --- the actual text\n" +
+            "content starts at 4-columns in.\n" +
+            "\n" +
+            "> Block quotes are\n" +
+            "> written like so.\n" +
+            ">\n" +
+            "> They can span multiple paragraphs,\n" +
+            "> if you like.\n" +
+            "\n" +
+            "Use 3 dashes for an em-dash. Use 2 dashes for ranges (ex., \"it's all\n" +
+            "in chapters 12--14\"). Three dots ... will be converted to an ellipsis.\n" +
+            "Unicode is supported. ☺\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "An h2 header\n" +
+            "------------\n" +
+            "\n" +
+            "Here's a numbered list:\n" +
+            "\n" +
+            " 1. first item\n" +
+            " 2. second item\n" +
+            " 3. third item\n" +
+            "\n" +
+            "Note again how the actual text starts at 4 columns in (4 characters\n" +
+            "from the left side). Here's a code sample:\n" +
+            "\n" +
+            "    # Let me re-iterate ...\n" +
+            "    for i in 1 .. 10 { do-something(i) }\n" +
+            "\n" +
+            "As you probably guessed, indented 4 spaces. By the way, instead of\n" +
+            "indenting the block, you can use delimited blocks, if you like:\n" +
+            "\n" +
+            "~~~\n" +
+            "define foobar() {\n" +
+            "    print \"Welcome to flavor country!\";\n" +
+            "}\n" +
+            "~~~\n" +
+            "\n" +
+            "(which makes copying & pasting easier). You can optionally mark the\n" +
+            "delimited block for Pandoc to syntax highlight it:\n" +
+            "\n" +
+            "~~~python\n" +
+            "import time\n" +
+            "# Quick, count to ten!\n" +
+            "for i in range(10):\n" +
+            "    # (but not *too* quick)\n" +
+            "    time.sleep(0.5)\n" +
+            "    print i\n" +
+            "~~~\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "### An h3 header ###\n" +
+            "\n" +
+            "Now a nested list:\n" +
+            "\n" +
+            " 1. First, get these ingredients:\n" +
+            "\n" +
+            "      * carrots\n" +
+            "      * celery\n" +
+            "      * lentils\n" +
+            "\n" +
+            " 2. Boil some water.\n" +
+            "\n" +
+            " 3. Dump everything in the pot and follow\n" +
+            "    this algorithm:\n" +
+            "\n" +
+            "        find wooden spoon\n" +
+            "        uncover pot\n" +
+            "        stir\n" +
+            "        cover pot\n" +
+            "        balance wooden spoon precariously on pot handle\n" +
+            "        wait 10 minutes\n" +
+            "        goto first step (or shut off burner when done)\n" +
+            "\n" +
+            "    Do not bump wooden spoon or it will fall.\n" +
+            "\n" +
+            "Notice again how text always lines up on 4-space indents (including\n" +
+            "that last line which continues item 3 above).\n" +
+            "\n" +
+            "Here's a link to [a website](http://foo.bar), to a [local\n" +
+            "doc](local-doc.html), and to a [section heading in the current\n" +
+            "doc](#an-h2-header). Here's a footnote [^1].\n" +
+            "\n" +
+            "[^1]: Footnote text goes here.\n" +
+            "\n" +
+            "Tables can look like this:\n" +
+            "\n" +
+            "size  material      color\n" +
+            "----  ------------  ------------\n" +
+            "9     leather       brown\n" +
+            "10    hemp canvas   natural\n" +
+            "11    glass         transparent\n" +
+            "\n" +
+            "Table: Shoes, their sizes, and what they're made of\n" +
+            "\n" +
+            "(The above is the caption for the table.) Pandoc also supports\n" +
+            "multi-line tables:\n" +
+            "\n" +
+            "--------  -----------------------\n" +
+            "keyword   text\n" +
+            "--------  -----------------------\n" +
+            "red       Sunsets, apples, and\n" +
+            "          other red or reddish\n" +
+            "          things.\n" +
+            "\n" +
+            "green     Leaves, grass, frogs\n" +
+            "          and other things it's\n" +
+            "          not easy being.\n" +
+            "--------  -----------------------\n" +
+            "\n" +
+            "A horizontal rule follows.\n" +
+            "\n" +
             "***\n" +
             "\n" +
-            "```\n" +
-            "test1\n" +
-            "test2\n" +
-            "test3\n" +
-            "test4\n" +
-            "```\n" +
+            "Here's a definition list:\n" +
             "\n" +
-            "- [ ] 123\n" +
-            "- [ ] 456\n" +
-            "- [ ] 789\n" +
+            "apples\n" +
+            "  : Good for making applesauce.\n" +
+            "oranges\n" +
+            "  : Citrus!\n" +
+            "tomatoes\n" +
+            "  : There's no \"e\" in tomatoe.\n" +
             "\n" +
-            "- [x] 987\n" +
-            "- [x] 654\n" +
-            "- [x] 321\n" +
+            "Again, text is indented 4 spaces. (Put a blank line between each\n" +
+            "term/definition pair to spread things out more.)\n" +
             "\n" +
-            "例如：\n" +
-            "# 一级标题\n" +
-            "## 二级标题\n" +
-            "### 三级标题\n" +
-            "---\n" +
-            "![test](file://" + Environment.getExternalStorageDirectory() + File.separator + "b.jpg/400$400" + ")\n" +
-            "### **加粗功能**\n" +
-            "使用一组星号“**”来加粗一段文字\n" +
+            "Here's a \"line block\":\n" +
             "\n" +
-            "```\n" +
-            "test1\n" +
-            "test2\n" +
-            "test3\n" +
-            "test4\n" +
-            "```" +
-            "例如：\n" +
-            "这是**加粗的文字**\n" +
+            "| Line one\n" +
+            "|   Line too\n" +
+            "| Line tree\n" +
             "\n" +
-            "### **居中**\n" +
-            "使用一对中括号“[文字]”来居中一段文字，也可![test](assets://bb.jpg/100$100)以和标题叠加使用\n" +
+            "and images can be specified like so:\n" +
             "\n" +
-            "例如：\n" +
-            "[### 这是一个居中的标题]\n" +
+            "![example image](example-image.jpg \"An exemplary image\")\n" +
             "\n" +
-            "### **引用**\n" +
-            "使用“> ”在段首来引用一段文字\n" +
+            "Inline math equations go in like so: $\\omega = d\\phi / dt$. Display\n" +
+            "math should get its own line and be put in in double-dollarsigns:\n" +
             "\n" +
-            "例如：\n" +
-            "> 这是一段引用\n" +
-            "> > > 这是一段引用\n" +
+            "$$I = \\int \\rho R^{2} dV$$\n" +
             "\n" +
-            "### **无序列表**\n" +
-            "使用 “-”、“*”或“+”加空格 来创建无序列表\n" +
-            "\n" +
-            "例如：\n" +
-            "- 这是一个无序列表\n" +
-            "+ 这是一个无序列表\n" +
-            "* 这是一个无序列表\n" +
-            "\n" +
-            "### **有序列表**\n" +
-            "使用 数字圆点加空格 如“1. ”、“2. ”来创建有序列表\n" +
-            "\n" +
-            "例如：\n" +
-            "1. 这是一个有序列表\n" +
-            "2. 这是一个有序列表\n" +
-            "3. 这是一个有序列表";
+            "And note that you can backslash-escape any punctuation characters\n" +
+            "which you wish to be displayed literally, ex.: \\`foo\\`, \\*bar\\*, etc.";
 
     String MD_SAMPLE2 =
             "当程序越来越大之后，出现了一个 dex 包装不下的情况，通过 `MultiDex` 的方法解决了这个问题，但是在底端机器上又出现了 `INSTALL_FAILED_DEXOPT` 的情况，那再解决这个问题吧。等解决完这个问题之后，发现需要填的坑越来越多了，文章讲的是我在分包处理中填的坑，比如 65536、LinearAlloc、NoClassDefFoundError等等。\n" +

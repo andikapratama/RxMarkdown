@@ -9,14 +9,13 @@ import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.yydcdut.markdowndemo.loader.OKLoader;
-import com.yydcdut.markdowndemo.view.HorizontalEditScrollView;
 import com.yydcdut.rxmarkdown.RxMDConfiguration;
 import com.yydcdut.rxmarkdown.RxMDEditText;
 import com.yydcdut.rxmarkdown.RxMDTextView;
 import com.yydcdut.rxmarkdown.RxMarkdown;
 import com.yydcdut.rxmarkdown.factory.EditFactory;
 import com.yydcdut.rxmarkdown.factory.TextFactory;
+import com.yydcdut.rxmarkdown.view.HorizontalEditScrollView;
 
 import rx.Subscriber;
 
@@ -56,7 +55,6 @@ public class CompareActivity extends AppCompatActivity implements TextWatcher {
                 .setTodoColor(0xff669900)
                 .setTodoDoneColor(0xffff4444)
                 .setUnOrderListColor(0xffffbb33)
-                .setRxMDImageLoader(new OKLoader(this))
                 .setLinkUnderline(true)
                 .setLinkColor(0xff00ddff)
                 .build();

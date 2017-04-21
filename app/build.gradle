@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 22
+    compileSdkVersion 25
     buildToolsVersion "22.0.1"
 
     defaultConfig {
         applicationId "com.yydcdut.markdowndemo"
-        minSdkVersion 9
-        targetSdkVersion 22
+        minSdkVersion 15
+        targetSdkVersion 25
         versionCode 8
         versionName "1.1.0"
     }
@@ -24,11 +24,17 @@ android {
 
 }
 
+ext {
+    androidAnnotationVersion = '4.3.0'
+    supportLibraryVersion = '25.3.1'
+    googleServicesVersion = '10.2.0'
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:22.2.1'
-    compile 'com.android.support:design:22.2.1'
+    compile "com.android.support:appcompat-v7:$supportLibraryVersion"
+    compile "com.android.support:design:$supportLibraryVersion"
     compile 'io.reactivex:rxandroid:1.2.0'
     compile 'io.reactivex:rxjava:1.1.5'
     compile project(':rxmarkdown')

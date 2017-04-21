@@ -15,13 +15,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.yydcdut.markdowndemo.loader.OKLoader;
 import com.yydcdut.rxmarkdown.RxMDConfiguration;
 import com.yydcdut.rxmarkdown.RxMDTextView;
 import com.yydcdut.rxmarkdown.RxMarkdown;
 import com.yydcdut.rxmarkdown.callback.OnLinkClickCallback;
 import com.yydcdut.rxmarkdown.factory.TextFactory;
-import com.yydcdut.rxmarkdown.loader.RxMDImageLoader;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -56,8 +54,6 @@ public class ShowActivity extends AppCompatActivity {
             return;
         }
         textView.setText(content);
-        RxMDImageLoader rxMDImageLoader = null;
-        rxMDImageLoader = new OKLoader(this);
 //        rxMDImageLoader = new UILLoader(this);
 
         RxMDConfiguration rxMDConfiguration = new RxMDConfiguration.Builder(this)
@@ -75,7 +71,6 @@ public class ShowActivity extends AppCompatActivity {
                 .setTodoColor(0xffaa66cc)
                 .setTodoDoneColor(0xffff8800)
                 .setUnOrderListColor(0xff00ddff)
-                .setRxMDImageLoader(rxMDImageLoader)
                 .setHorizontalRulesHeight(1)
                 .setLinkColor(Color.BLUE)
                 .setLinkUnderline(false)

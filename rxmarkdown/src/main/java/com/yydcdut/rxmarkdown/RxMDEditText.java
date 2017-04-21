@@ -30,6 +30,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.EditText;
 
+import com.pratamalabs.emoji.EmojiEditText;
 import com.yydcdut.rxmarkdown.edit.BlockQuotesController;
 import com.yydcdut.rxmarkdown.edit.CenterAlignController;
 import com.yydcdut.rxmarkdown.edit.CodeController;
@@ -51,7 +52,7 @@ import java.util.ArrayList;
  * <p>
  * Created by yuyidong on 16/5/20.
  */
-public class RxMDEditText extends EditText implements Handler.Callback {
+public class RxMDEditText extends EmojiEditText implements Handler.Callback {
     private static final String TAG = RxMDEditText.class.getName();
 
     private static final int MSG_BEFORE_TEXT_CHANGED = 1;
@@ -60,13 +61,11 @@ public class RxMDEditText extends EditText implements Handler.Callback {
     private static final int MSG_INIT_FORMAT = 4;
     private static final int MSG_FORMAT_BEFORE_TEXT_CHANGED = 5;
     private static final int MSG_FORMAT_ON_TEXT_CHANGED = 6;
-    private Handler mHandler;
-
     private static final String BUNDLE_CHAR_SEQUENCE = "bundle_char_sequence";
     private static final String BUNDLE_START = "bundle_start";
     private static final String BUNDLE_BEFORE = "bundle_before";
     private static final String BUNDLE_AFTER = "bundle_after";
-
+    private Handler mHandler;
     private AbsGrammarFactory mGrammarFactory;
     private RxMDConfiguration mRxMDConfiguration;
 
@@ -150,88 +149,6 @@ public class RxMDEditText extends EditText implements Handler.Callback {
         int selectionStart = getSelectionStart();
         setText(editable.toString());
         setSelection(selectionStart, selectionEnd);
-    }
-
-    public class EditTextWatcher implements TextWatcher {
-
-        public void doBeforeTextChanged(CharSequence s, int start, int before, int after) {
-            if (isMainThread()) {
-                sendBeforeTextChanged(s, start, before, after);
-            } else {
-                sendMessage(MSG_BEFORE_TEXT_CHANGED, s, start, before, after);
-            }
-        }
-
-        public void doOnTextChanged(CharSequence s, int start, int before, int after) {
-            if (isMainThread()) {
-                sendOnTextChanged(s, start, before, after);
-            } else {
-                sendMessage(MSG_ON_TEXT_CHANGED, s, start, before, after);
-            }
-        }
-
-        public void doAfterTextChanged(final Editable s) {
-            if (isMainThread()) {
-                sendAfterTextChanged(getText());
-            } else {
-                sendMessage(MSG_AFTER_TEXT_CHANGED, s, 0, 0, 0);
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int before, int after) {
-            if (isMainThread()) {
-                sendBeforeTextChanged(s, start, before, after);
-            } else {
-                sendMessage(MSG_BEFORE_TEXT_CHANGED, s, start, before, after);
-            }
-            if (mEditControllerList == null) {
-                initControllerList();
-            }
-            if (mInitFormat) {
-                return;
-            }
-            if (isMainThread()) {
-                beforeTextChanged4Controller(s, start, before, after);
-            } else {
-                sendMessage(MSG_FORMAT_BEFORE_TEXT_CHANGED, s, start, before, after);
-            }
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int after) {
-            if (isMainThread()) {
-                sendOnTextChanged(s, start, before, after);
-            } else {
-                sendMessage(MSG_ON_TEXT_CHANGED, s, start, before, after);
-            }
-            if (mInitFormat) {
-                return;
-            }
-            if (isMainThread()) {
-                onTextChanged4Controller(s, start, before, after);
-            } else {
-                sendMessage(MSG_FORMAT_ON_TEXT_CHANGED, s, start, before, after);
-            }
-        }
-
-        @Override
-        public void afterTextChanged(final Editable s) {
-            if (mInitFormat) {
-                CharSequence charSequence = format();
-                if (isMainThread()) {
-                    setEditableText(charSequence);
-                } else {
-                    sendMessage(MSG_INIT_FORMAT, charSequence, 0, 0, 0);
-                }
-                mInitFormat = false;
-            }
-            if (isMainThread()) {
-                sendAfterTextChanged(getText());
-            } else {
-                sendMessage(MSG_AFTER_TEXT_CHANGED, s, 0, 0, 0);
-            }
-        }
     }
 
     @Override
@@ -499,5 +416,87 @@ public class RxMDEditText extends EditText implements Handler.Callback {
             return (getText()).getSpans(0, length(), MDImageSpan.class);
         }
         return new MDImageSpan[0];
+    }
+
+    public class EditTextWatcher implements TextWatcher {
+
+        public void doBeforeTextChanged(CharSequence s, int start, int before, int after) {
+            if (isMainThread()) {
+                sendBeforeTextChanged(s, start, before, after);
+            } else {
+                sendMessage(MSG_BEFORE_TEXT_CHANGED, s, start, before, after);
+            }
+        }
+
+        public void doOnTextChanged(CharSequence s, int start, int before, int after) {
+            if (isMainThread()) {
+                sendOnTextChanged(s, start, before, after);
+            } else {
+                sendMessage(MSG_ON_TEXT_CHANGED, s, start, before, after);
+            }
+        }
+
+        public void doAfterTextChanged(final Editable s) {
+            if (isMainThread()) {
+                sendAfterTextChanged(getText());
+            } else {
+                sendMessage(MSG_AFTER_TEXT_CHANGED, s, 0, 0, 0);
+            }
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int before, int after) {
+            if (isMainThread()) {
+                sendBeforeTextChanged(s, start, before, after);
+            } else {
+                sendMessage(MSG_BEFORE_TEXT_CHANGED, s, start, before, after);
+            }
+            if (mEditControllerList == null) {
+                initControllerList();
+            }
+            if (mInitFormat) {
+                return;
+            }
+            if (isMainThread()) {
+                beforeTextChanged4Controller(s, start, before, after);
+            } else {
+                sendMessage(MSG_FORMAT_BEFORE_TEXT_CHANGED, s, start, before, after);
+            }
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int after) {
+            if (isMainThread()) {
+                sendOnTextChanged(s, start, before, after);
+            } else {
+                sendMessage(MSG_ON_TEXT_CHANGED, s, start, before, after);
+            }
+            if (mInitFormat) {
+                return;
+            }
+            if (isMainThread()) {
+                onTextChanged4Controller(s, start, before, after);
+            } else {
+                sendMessage(MSG_FORMAT_ON_TEXT_CHANGED, s, start, before, after);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(final Editable s) {
+            if (mInitFormat) {
+                CharSequence charSequence = format();
+                if (isMainThread()) {
+                    setEditableText(charSequence);
+                } else {
+                    sendMessage(MSG_INIT_FORMAT, charSequence, 0, 0, 0);
+                }
+                mInitFormat = false;
+            }
+            if (isMainThread()) {
+                sendAfterTextChanged(getText());
+            } else {
+                sendMessage(MSG_AFTER_TEXT_CHANGED, s, 0, 0, 0);
+            }
+        }
     }
 }
