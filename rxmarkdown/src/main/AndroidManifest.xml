@@ -2,12 +2,13 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.yydcdut.rxmarkdown">
 
+    <uses-sdk tools:overrideLibrary="com.pratamalabs.emoji"/>
+
     <application>
 
         <activity
                 android:name=".EditActivity"
                 android:theme="@style/AppTheme.NoActionBar"
                 android:windowSoftInputMode="adjustResize|stateHidden"/>
-        <uses-sdk tools:overrideLibrary="com.pratamalabs.emoji"/>
     </application>
 </manifest>
