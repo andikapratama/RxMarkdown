@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
+    <item
+            android:id="@+id/action_preview"
+            android:orderInCategory="100"
+            android:capitalize="none"
+            app:showAsAction="always"
+            android:title="Preview"/>
+
+    <item
+            android:id="@+id/action_save"
+            android:orderInCategory="100"
+            android:capitalize="none"
+            app:showAsAction="always"
+            android:title="Simpan"/>
+</menu>
