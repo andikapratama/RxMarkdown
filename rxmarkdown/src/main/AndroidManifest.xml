@@ -8,7 +8,6 @@
 
         <activity
                 android:name=".EditActivity"
-                android:theme="@style/AppTheme.NoActionBar"
                 android:windowSoftInputMode="adjustResize|stateHidden"/>
     </application>
 </manifest>
